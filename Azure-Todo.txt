@@ -18,7 +18,6 @@ Prefix SCD is Shopping Cart Demo
 	- SQL Database 2 for product (SCD_DB_Product)
 	- SQL Database 3 for Cart (SCD_DB_Cart)
 	- SQL Database 4 for Orders (SCD_DB_Order)
-	("Server=tcp:scd-server.database.windows.net,1433; Initial Catalog=; Persist Security Info=False; User ID=scd-admin; Password=Sh0pp!ngC@rtDem0; MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=False; Connection Timeout=30;")
 5. Blob Storage (scdstorageaccountname)
 	-Store Product Images 
 	-Implement Storage Access Policy
