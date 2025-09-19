@@ -1,0 +1,53 @@
+Prefix SCD is Shopping Cart Demo
+
+1- Resource Group(SCD_UI)
+2. Virtual Network(SCD_VN)
+	- subnet 1(for SCD_SN_UI)
+	- subnet 2(for SCD_SN_Auth)
+	- subnet 3(for SCD_SN_Product)
+	- subnet 4(for SCD_SN_Cart)
+	- subnet 5(for SCD_SN_Order)
+3. Azure App Service
+	- app Service 1(for SCD_AS_UI)
+	- app Service 2(for SCD_AS_Auth)
+	- app Service 3(for SCD_AS_Product)
+	- app Service 4(for SCD_AS_Cart)
+	- app Service 5(for SCD_AS_Order)
+4. Azure SQL Server (SCD-server/scd-admin/Sh0pp!ngC@rtDem0) and all db with Firewall, Private Link
+	- SQL Database 1 for Identity (SCD_DB_Auth)
+	- SQL Database 2 for product (SCD_DB_Product)
+	- SQL Database 3 for Cart (SCD_DB_Cart)
+	- SQL Database 4 for Orders (SCD_DB_Order)
+	("Server=tcp:scd-server.database.windows.net,1433; Initial Catalog=; Persist Security Info=False; User ID=scd-admin; Password=Sh0pp!ngC@rtDem0; MultipleActiveResultSets=False; Encrypt=True; TrustServerCertificate=False; Connection Timeout=30;")
+5. Blob Storage (scdstorageaccountname)
+	-Store Product Images 
+	-Implement Storage Access Policy
+	-Configure the Application to Use Blob Storage
+6. Azure Function (SCD-EmailConsumer)
+	-service bus (scd-messagequeue) standard plan- Azure Service Bus(to notify cart changes and push mail template in storage queue)
+	-Process Orders Asynchronously and  send confirmation mail
+7. Logic Apps
+	-Sending Emails (scd-logicapp-email-notification) Upon Order Completion
+	-Update order status
+
+8. Set Up Azure Monitor and Log Analytics
+	-For all web apps
+	-For all database
+9. Create Alerts for CPU and Response Time Metrics
+10. Configure Application Insights for Performance Monitoring
+11. Azure DevOps Project
+	-Set up a new project in Azure DevOps
+	-create repositories in Azure Repos
+		>application code
+		>database scripts
+		>Docker files
+		>Terraform configurations
+12. Set Up a CI/CD Pipeline
+	-use of YAML-based pipelines
+	-automate web app build, test and deployment processes
+
+
+
+
+
+
