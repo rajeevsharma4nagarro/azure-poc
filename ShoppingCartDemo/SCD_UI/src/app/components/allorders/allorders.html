@@ -1,0 +1,66 @@
+<div class="d-flex align-items-center justify-content-center bg-light" style="padding-top: 10px;">
+  <div class="card shadow-lg p-4" style="width: 90%; border-radius: 15px;">
+    <div class="row">
+      <div class="col-md-12 mb12 text-center ">
+        <h4 class="fw-bold">Pending orders for approve or reject.</h4>
+      </div>
+    </div>
+    <div class="row text-center ">
+      <table>
+        <thead>
+          <tr>
+            <th>Order Id</th>
+            <th>Order Date</th>
+            <th>Status</th>
+            <th>Total</th>
+            <th>Recepient</th>
+            <th>Address</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="orders.length == 0"><td colspan="7">
+  Nothing pending for approval.
+                                           <br /><br />
+  <span class="btn btn-success" (click)="bindData()">
+    <i class="fa fa-refresh fa-lg"></i> Check new Data
+  </span>
+</td></tr>
+          <tr *ngFor="let o of orders">
+            <td>
+              {{o.orderHeaderId}}
+            </td>
+            <td>
+              {{o.orderOn | date:'dd/MM/yyyy HH:mm'}}
+            </td>
+            <td>
+              {{o.status}}
+            </td>
+            <td>
+              {{o.orderTotal}}
+            </td>
+            <td>
+              <strong>{{o.name}}</strong><br />{{o.email}}
+            </td>
+            <td>
+              {{o.address}}, {{o.city}}<br /> {{o.state}}, {{o.zip}}
+            </td>
+            <td>
+              <span class="btn btn-success" (click)="updateStatus(o.orderHeaderId,true)">
+              <i class="fa fa-check fa-lg"></i> Approve</span>
+              &nbsp;
+              <span class="btn btn-danger" (click)="updateStatus(o.orderHeaderId,false)">
+                <i class="fa fa-trash fa-lg"></i> Reject
+              </span>
+
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center mt-12">
+      &nbsp;
+    </div>
+  </div>
+</div>
