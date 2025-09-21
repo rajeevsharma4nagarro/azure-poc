@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "SCD.EmailProcessorFunction": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7145",
+      "launchBrowser": false
+    }
+  }
+}

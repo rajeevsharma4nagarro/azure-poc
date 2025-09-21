@@ -1,0 +1,54 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <!-- Logo -->
+  <a class="navbar-brand fw-bold" [routerLink]="['/home']">
+    <i class="fa fa-shopping-bag me-2"></i>MyShop
+  </a>
+
+  <div class="ms-auto d-flex align-items-center">
+    <!-- Case 1: User NOT logged in -->
+    <div *ngIf="!isLoggedIn">
+      <a class="nav-link d-inline-block text-white me-3" [routerLink]="['/']">Login</a>
+      <a class="nav-link d-inline-block text-white" [routerLink]="['/signup']">Signup</a>
+    </div>
+
+    <!-- Case 2: User LOGGED in -->
+    <a *ngIf="isLoggedIn && roleName=='Admin'" class="nav-link d-inline-block text-white me-3" [routerLink]="['/addproduct']">Add Product</a>
+    <a *ngIf="isLoggedIn && roleName=='Admin'" class="nav-link d-inline-block text-white me-3" [routerLink]="['/pendingorders']">Pending Orders</a>
+    <div *ngIf="isLoggedIn" class="dropdown">
+      <a class="nav-link dropdown-toggle text-white"
+         href="#"
+         role="button"
+         data-bs-toggle="dropdown"
+         aria-expanded="false">
+        <i class="fa fa-user-circle me-1"></i>{{ userName }}
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end p-2" style="min-width: 300px;">
+
+        <!-- Shopping Cart Items -->
+        <li class="fw-bold px-2 mb-2 border-bottom">Shopping Cart</li>
+        <app-cart-items (cartTotal)="populateCarttotal($event)"></app-cart-items>
+        <li *ngIf="cartTotal > 0" class="mt-2 px-2">
+          <a class="btn btn-sm btn-light w-100" [routerLink]="['/checkout']">
+            <i class="fa fa-credit-card me-1"></i> Checkout&nbsp;<strong>₹{{ cartTotal }}</strong>
+          </a>
+        </li>
+
+        <li><hr class="dropdown-divider"></li>
+
+        <!-- Logout -->
+        <li>
+          <a class="dropdown-item text-info" [routerLink]="['/myorders']">
+            <i class="fa fa-sign-out me-2"></i>My Orders
+          </a>
+        </li>
+        <li>
+          <a class="dropdown-item text-danger" href="#" (click)="logout()">
+            <i class="fa fa-sign-out me-2"></i>Logout
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<router-outlet />

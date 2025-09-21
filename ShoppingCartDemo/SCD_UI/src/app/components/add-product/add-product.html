@@ -1,0 +1,73 @@
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0"><i class="fa fa-plus-circle me-2"></i>Add Product</h5>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+            <!-- Category -->
+            <div class="mb-3">
+              <label for="category" class="form-label">Category</label>
+              <select class="form-select"
+                      formControlName="category"
+                      required>
+                <option value="" disabled selected>Select category</option>
+                <option *ngFor="let cat of enumKeys" [value]="cat">
+                  {{ cat }}
+                </option>
+              </select>
+            </div>
+
+            <!-- Product Name -->
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="name"
+                     required />
+            </div>
+
+            <!-- Product Description -->
+            <div class="mb-3">
+              <label for="name" class="form-label">Description</label>
+              <input type="text"
+                     class="form-control"
+                     formControlName="description"
+                     required />
+            </div>
+
+            <!-- Price -->
+            <div class="mb-3">
+              <label for="price" class="form-label">Price</label>
+              <input type="number"
+                     class="form-control"
+                     formControlName="price"
+                     min="1"
+                     required />
+            </div>
+
+            <!-- Image Upload -->
+            <div class="mb-3">
+              <label for="image" class="form-label">Image</label>
+              <input type="file"
+                     formControlName="image"
+                     class="form-control"
+                      (change)="onFileSelected($event)"
+                     accept=".jpg, .jpeg, .png, .gif"
+                     required />
+            </div>
+
+            <!-- Submit -->
+            <button class="btn btn-success w-100"
+                    type="submit"
+                    [disabled]="!productForm.valid">
+              <i class="fa fa-save me-2"></i>Save Product
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
