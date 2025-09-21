@@ -1,0 +1,75 @@
+#####################################
+# OS & Editor-specific ignores
+#####################################
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# VS Code
+.vscode/
+.vs
+
+# JetBrains Rider / IntelliJ
+.idea/
+
+# Logs
+*.log
+logs/
+*.tlog
+
+# Temp files
+*.tmp
+*.swp
+*.swo
+
+#####################################
+# Node / Angular project ignores
+#####################################
+# Node modules (Angular or other JS projects)
+**/node_modules/
+
+# Angular build output
+**/dist/
+**/out-tsc/
+
+# Angular environment files (if customized)
+# **/src/environments/environment*.ts
+
+#####################################
+# ASP.NET Core / .NET ignores
+#####################################
+# Build outputs
+**/bin/
+**/obj/
+**/out/
+**/Debug/
+**/Release/
+
+# User-specific files
+**/*.user
+**/*.suo
+**/*.userosscache
+**/*.sln.docstates
+
+# Dotnet secrets & config
+secrets.json
+appsettings.json
+appsettings.Development.json
+local.settings.json
+
+# ASP.NET generated publish folder
+**/publish/
+
+#####################################
+# Git folder - do not ignore
+#####################################
+!.git/
+
+#####################################
+# Optional: ignore all other files in somefiles/
+# Uncomment if needed
+# /somefiles/*

@@ -19,7 +19,8 @@ Prefix SCD is Shopping Cart Demo
 	- SQL Database 3 for Cart (SCD_DB_Cart)
 	- SQL Database 4 for Orders (SCD_DB_Order)
 5. Blob Storage (scdstorageaccountname)
-	-Store Product Images 
+	-Store Queue(scd-storagequeue)
+	-Store Product Images Container(images)
 	-Implement Storage Access Policy
 	-Configure the Application to Use Blob Storage
 6. Azure Function (SCD-EmailConsumer)
