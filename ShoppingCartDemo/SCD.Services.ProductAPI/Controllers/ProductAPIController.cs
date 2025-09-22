@@ -116,7 +116,7 @@ namespace SCD.Services.ProductAPI.Controllers
                 //}
                 //product.ImageUrl = "/images/" + filename;
 
-                product.ImageUrl = fileUrl;
+                product.ImageUrl = fileUrl.Replace(ImageBaseUrl(), "");
 
                 _db.Products.Add(product);
                 _db.SaveChanges();
