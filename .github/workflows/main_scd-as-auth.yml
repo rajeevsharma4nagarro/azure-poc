@@ -7,8 +7,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'ShoppingCartDemo/SCD.Services.AuthAPI/**'
   workflow_dispatch:
 
 jobs:
@@ -69,4 +67,5 @@ jobs:
           package: .
 
           
+
 
