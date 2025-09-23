@@ -30,13 +30,13 @@ jobs:
         run: dotnet build "ShoppingCartDemo/SCD.Services.AuthAPI/SCD.Services.AuthAPI.csproj" --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish "ShoppingCartDemo/SCD.Services.AuthAPI/SCD.Services.AuthAPI.csproj" -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish "ShoppingCartDemo/SCD.Services.AuthAPI/SCD.Services.AuthAPI.csproj" -c Release -o "${{env.DOTNET_ROOT}}/SCD-AS-Auth"
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ${{env.DOTNET_ROOT}}/SCD-AS-Auth
 
   deploy:
     runs-on: windows-latest
@@ -67,5 +67,6 @@ jobs:
           package: .
 
           
+
 
 
