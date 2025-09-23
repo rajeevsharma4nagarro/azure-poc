@@ -1,0 +1,139 @@
+{
+    "GlobalConfiguration": { 
+        "BaseUrl": "http:/localhost:7000"
+    },
+    "Routes": [
+        {
+            "UpstreamPathTemplate": "/api/product",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamPathTemplate": "/api/product",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7003
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/api/product/{userId}",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamPathTemplate": "/api/product/{userId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7003
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/api/product",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamPathTemplate": "/api/product",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7003
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/api/cart/CartUpsert",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamPathTemplate": "/api/cart/CartUpsert",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7004
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/api/cart/RemoveCart",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamPathTemplate": "/api/cart/RemoveCart",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7004
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/api/cart/GetCart/{userId}",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamPathTemplate": "/api/cart/GetCart/{userId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7004
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/api/cart/ClearCart",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamPathTemplate": "/api/cart/ClearCart",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7004
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/api/checkout/CreateOrder",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamPathTemplate": "/api/checkout/CreateOrder",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7005
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/api/checkout/GetOrders/{userId}",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamPathTemplate": "/api/checkout/GetOrders/{userId}",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7005
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/api/checkout/GetPendingOrders",
+            "UpstreamHttpMethod": [ "Get" ],
+            "DownstreamPathTemplate": "/api/checkout/GetPendingOrders",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7005
+                }
+            ]
+        },
+        {
+            "UpstreamPathTemplate": "/api/checkout/UpdateOrderStatus",
+            "UpstreamHttpMethod": [ "Post" ],
+            "DownstreamPathTemplate": "/api/checkout/UpdateOrderStatus",
+            "DownstreamScheme": "http",
+            "DownstreamHostAndPorts": [
+                {
+                    "Host": "localhost",
+                    "Port": 7005
+                }
+            ]
+        }
+    ]
+}

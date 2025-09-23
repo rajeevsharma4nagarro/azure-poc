@@ -25,7 +25,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Allow_SCD_UI", policy =>
     {
-        policy.WithOrigins(builder.Configuration.GetValue<string>("AllowedOrigins"))
+        policy.WithOrigins(builder.Configuration.GetValue<string>("AllowedOrigins").Split(','))
         .AllowAnyHeader()
         .AllowAnyMethod();
     });
