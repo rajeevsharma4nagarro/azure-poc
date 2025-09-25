@@ -31,6 +31,7 @@ jobs:
         run: |
           npm install
           npm run build
+          npx ng build --configuration production --base-href /
 
       - name: Upload Angular build output
         uses: actions/upload-artifact@v4
@@ -65,4 +66,5 @@ jobs:
           app-name: 'uiapp'  # Replace with your actual Azure Web App name
           slot-name: 'Production'
           package: deploy-folder  # This must point to the downloaded artifact folder
+
 
