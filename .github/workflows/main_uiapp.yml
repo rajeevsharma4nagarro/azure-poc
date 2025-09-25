@@ -7,6 +7,8 @@ on:
   push:
     branches:
       - main
+    paths:
+    - 'ShoppingCartDemo/SCD_UI/**'
   workflow_dispatch:
 
 jobs:
@@ -62,4 +64,5 @@ jobs:
           app-name: 'uiapp'
           slot-name: 'Production'
           package: .
+
           
