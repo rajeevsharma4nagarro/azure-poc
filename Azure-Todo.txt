@@ -8,11 +8,11 @@ Prefix SCD is Shopping Cart Demo
 	- subnet 4(for SCD_SN_Cart)
 	- subnet 5(for SCD_SN_Order)
 3. Azure App Service
-	- app Service 1(for SCD_AS_UI)
-	- app Service 2(for SCD_AS_Auth)
-	- app Service 3(for SCD_AS_Product)
-	- app Service 4(for SCD_AS_Cart)
-	- app Service 5(for SCD_AS_Order)
+	- Static Web App 1(for SCD-AS-UI)
+	- Web App API 2(for SCD-AS-Auth)
+	- Web App API 3(for SCD-AS-Product)
+	- Web App API 4(for SCD-AS-Cart)
+	- Web App API 5(for SCD-AS-Order)
 4. Azure SQL Server (SCD-server/scd-admin/Sh0pp!ngC@rtDem0) and all db with Firewall, Private Link
 	- SQL Database 1 for Identity (SCD_DB_Auth)
 	- SQL Database 2 for product (SCD_DB_Product)
