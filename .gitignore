@@ -31,7 +31,7 @@ logs/
 #####################################
 # Node modules (Angular or other JS projects)
 **/node_modules/
-package-lock.json
+
 # Angular build output
 **/dist/
 **/out-tsc/
