@@ -1,5 +1,7 @@
 export const environment = {
   production: true,
-  userApiUrl: 'http://localhost:7001/api',
-  productApiUrl: 'http://localhost:7001/api'
+  authApiUrl: 'http://localhost:7002/api',
+  productApiUrl: 'http://localhost:7000/api',
+  cartApiUrl: 'http://localhost:7000/api',
+  orderApiUrl: 'http://localhost:7000/api'
 };
