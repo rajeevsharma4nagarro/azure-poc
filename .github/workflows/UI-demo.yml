@@ -43,7 +43,8 @@ jobs:
       with:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
-
+        cache-dependency-path: ShoppingCartDemo/SCD_UI/package-lock.json
+        
     - name: npm install, build #, and test
       working-directory: ShoppingCartDemo/SCD_UI
       run: |
