@@ -31,6 +31,28 @@ jobs:
           npm install
           npx ng build --configuration production --base-href /
 
+      - name: Copy web.config for Azure App Service
+        run: |
+          cat <<EOF > ShoppingCartDemo/SCD_UI/dist/SCD_UI/browser/web.config
+          <?xml version="1.0" encoding="utf-8"?>
+          <configuration>
+            <system.webServer>
+              <rewrite>
+                <rules>
+                  <rule name="Angular Routes" stopProcessing="true">
+                    <match url=".*" />
+                    <conditions logicalGrouping="MatchAll">
+                      <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+                      <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+                    </conditions>
+                    <action type="Rewrite" url="/" />
+                  </rule>
+                </rules>
+              </rewrite>
+            </system.webServer>
+          </configuration>
+          EOF
+
       - name: Upload Angular build output
         uses: actions/upload-artifact@v4
         with:
@@ -67,6 +89,7 @@ jobs:
           package: ./deploy
 
           
+
 
 
 
