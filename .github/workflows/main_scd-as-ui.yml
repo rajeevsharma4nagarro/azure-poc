@@ -34,7 +34,7 @@ jobs:
       - name: Upload Angular build output
         uses: actions/upload-artifact@v4
         with:
-          name: angular-build
+          name: SCD_UI-build
           path: ShoppingCartDemo/SCD_UI/dist/SCD_UI/browser/
           
   deploy:
@@ -48,7 +48,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v4
         with:
-          name: node-app
+          name: SCD_UI-build
           path: deploy-folder/
           
       - name: Login to Azure
@@ -67,4 +67,5 @@ jobs:
           package: deploy-folder/
 
           
+
 
