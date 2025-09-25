@@ -1,4 +1,4 @@
-name: Build UI demo
+name: Build Angular app - SCD-AS-UI
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
       working-directory: ShoppingCartDemo/SCD_UI
       run: |
         npm install
-        npm run build --if-present
+        npm run build  --configuration=production --if-present
 
     - name: Upload build artifact
       uses: actions/upload-artifact@v4
