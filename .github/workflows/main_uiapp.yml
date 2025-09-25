@@ -51,7 +51,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: angular-build
-          path: deploy-folder  # Custom folder to avoid root-level clutter
+          path: deploy-folder/  # Custom folder to avoid root-level clutter
 
       - name: Login to Azure
         uses: azure/login@v2
@@ -65,6 +65,7 @@ jobs:
         with:
           app-name: 'uiapp'  # Replace with your actual Azure Web App name
           slot-name: 'Production'
-          package: deploy-folder  # This must point to the downloaded artifact folder
+          package: deploy-folder/  # This must point to the downloaded artifact folder
+
 
 
