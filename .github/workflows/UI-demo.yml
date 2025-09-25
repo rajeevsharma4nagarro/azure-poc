@@ -30,6 +30,7 @@ env:
   NODE_VERSION: '20.x'                # set this to the node version to use
 
 permissions:
+  id-token: write
   contents: read
 
 jobs:
