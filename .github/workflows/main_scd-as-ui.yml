@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies and build Angular app
         working-directory: ShoppingCartDemo/SCD_UI
         run: |
-          npm ci
+          npm install
           npx ng build --configuration production --base-href /
 
       - name: Upload Angular build output
@@ -67,6 +67,7 @@ jobs:
           package: ./deploy
 
           
+
 
 
 
