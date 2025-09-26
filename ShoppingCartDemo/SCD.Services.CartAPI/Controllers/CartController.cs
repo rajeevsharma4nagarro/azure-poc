@@ -24,8 +24,9 @@ namespace SCD.Services.CartAPI.Controllers
         private readonly IProductService _productService;
         private readonly iMessageBus _iMessageBus;
         private readonly IConfiguration _configuration;
+        private readonly ILogger<CartController> _logger;
         public CartController(AppDbContext db, IMapper mapper1, IHttpContextAccessor httpContextAccessor
-            , IProductService productService, iMessageBus messageBus, IConfiguration configuration)
+            , IProductService productService, iMessageBus messageBus, IConfiguration configuration, ILogger<CartController> logger)
         {
             _db = db;
             _responseDto = new ResponseDto();
@@ -34,6 +35,7 @@ namespace SCD.Services.CartAPI.Controllers
             _productService = productService;
             _iMessageBus = messageBus;
             _configuration = configuration;
+            _logger = logger;
         }
 
         [HttpPost("CartUpsert")]
@@ -127,6 +129,7 @@ namespace SCD.Services.CartAPI.Controllers
             }
             catch (Exception ex)
             {
+                _logger.LogError("Cart api remove cart Failed: " + ex.Message);
                 _responseDto.Message = ex.Message;
                 _responseDto.IsSuccess = false;
             }

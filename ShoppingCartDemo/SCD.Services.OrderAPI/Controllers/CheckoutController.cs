@@ -27,9 +27,10 @@ namespace SCD.Services.OrderAPI.Controllers
         private readonly iMessageBus _iMessageBus;
         private readonly IConfiguration _configuration;
         private readonly IEmailService _emailService;
+        private readonly ILogger<CheckoutController> _logger;
         public CheckoutController(AppDbContext db, IMapper mapper1, IHttpContextAccessor httpContextAccessor
             , IProductService productService, ICartService cartService, iMessageBus messageBus, IConfiguration configuration,
-            IEmailService emailService)
+            IEmailService emailService, ILogger<CheckoutController> logger)
         {
             _db = db;
             _responseDto = new ResponseDto();
@@ -40,6 +41,7 @@ namespace SCD.Services.OrderAPI.Controllers
             _iMessageBus = messageBus;
             _configuration = configuration;
             _emailService = emailService;
+            _logger = logger;
         }
 
         [HttpPost("CreateOrder")]
@@ -98,6 +100,7 @@ namespace SCD.Services.OrderAPI.Controllers
                 }
                 catch (Exception ex)
                 {
+                    _logger.LogError("Update Order Header  Failed: " + ex.Message);
                     throw new Exception("Update Order Header  Failed:" + ex.Message);
                 }
                 
@@ -106,6 +109,7 @@ namespace SCD.Services.OrderAPI.Controllers
                 var clearresponse = await _cartService.RemoveCart(cartCheckoutDto.UserId);
                 if (!clearresponse.IsSuccess)
                 {
+                    _logger.LogError("Cart Remove  Failed: " + clearresponse.Message);
                     throw new Exception("Cart Remove  Failed:" + clearresponse.Message);
                 }
 
@@ -127,11 +131,13 @@ Your order has been received with order no {orderHeaderDto.OrderHeaderId} for th
                 }
                 catch (Exception ex)
                 {
-                    throw new Exception($"Failed to send email: " + ex.Message);
+                    _logger.LogError("Failed to send email: " + ex.Message);
+                    throw new Exception("Failed to send email: " + ex.Message);
                 }
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex.Message);
                 _responseDto.Message = ex.Message;
                 _responseDto.IsSuccess = false;
             }
