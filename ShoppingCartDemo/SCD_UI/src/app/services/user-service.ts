@@ -15,6 +15,7 @@ export class UserService {
 
   createUser(value: iRegistrationRequest): Observable<any> {
     return this.http.post<any>(`${environment.authApiUrl }/auth/register`, value);
+    //return of();
   }
 
   userLogin(value: { email: string, password: string }): Observable<any> {
