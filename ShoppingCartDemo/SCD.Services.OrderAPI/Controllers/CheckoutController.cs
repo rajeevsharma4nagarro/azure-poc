@@ -90,8 +90,17 @@ namespace SCD.Services.OrderAPI.Controllers
                     Status = OrderStatus.Pending
                 };
 
-                OrderHeader ordercreated = _db.OrderHeaders.Add(orderHeader).Entity;
-                await _db.SaveChangesAsync();
+                OrderHeader ordercreated;
+                try
+                {
+                    ordercreated = _db.OrderHeaders.Add(orderHeader).Entity;
+                    await _db.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Update Order Header  Failed:" + ex.Message);
+                }
+                
 
                 //Clear Cart Items
                 var clearresponse = await _cartService.RemoveCart(cartCheckoutDto.UserId);
