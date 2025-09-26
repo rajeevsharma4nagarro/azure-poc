@@ -95,7 +95,7 @@ namespace SCD.Services.OrderAPI.Controllers
 
                 //Clear Cart Items
                 var clearresponse = await _cartService.RemoveCart(cartCheckoutDto.UserId);
-                if(!clearresponse.IsSuccess)
+                if (!clearresponse.IsSuccess)
                 {
                     throw new Exception("Cart Remove  Failed:" + clearresponse.Message);
                 }
@@ -106,13 +106,20 @@ namespace SCD.Services.OrderAPI.Controllers
                 orderHeaderDto.OrderDetails = [];
                 _responseDto.Result = orderHeaderDto;
 
-                string to = orderHeaderDto.Email;
-                string subject = "SCD - Order confirmation";
-                string mailbody = $@"Hi {orderHeaderDto.Name},<br/><br/>
+                try
+                {
+                    string to = orderHeaderDto.Email;
+                    string subject = "SCD - Order confirmation";
+                    string mailbody = $@"Hi {orderHeaderDto.Name},<br/><br/>
 Your order has been received with order no {orderHeaderDto.OrderHeaderId} for the amount of Rs. {orderHeaderDto.OrderTotal}/-.
 <br/>You can check order status on SCD portal. 
 <br/><br/><br/>--<br/>Thanks<br/>Shopping Cart Demo (SCD)<br/>";
-                var resp = await _emailService.SendEmailAsync(to, subject, mailbody);
+                    var resp = await _emailService.SendEmailAsync(to, subject, mailbody);
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception($"Failed to send email: " + ex.Message);
+                }
             }
             catch (Exception ex)
             {
