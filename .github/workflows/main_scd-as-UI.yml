@@ -1,4 +1,4 @@
-name: Build Angular 20.0.1 app - SCD-AS-UI
+name: Build Angular 20.xx app - SCD-AS-UI
 
 on:
   push:
