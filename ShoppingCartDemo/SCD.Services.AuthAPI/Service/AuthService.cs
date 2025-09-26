@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using SCD.Services.AuthAPI.Data;
 using SCD.Services.AuthAPI.Models;
 using SCD.Services.AuthAPI.Models.Dto;
@@ -64,27 +65,35 @@ namespace SCD.Services.AuthAPI.Service
 
             try
             {
-                var result = _userManager.CreateAsync(user, registrationRequestDto.Password);
-                if(result.Result.Succeeded)
+                var isUserExist = _db.ApplicationUsers.AsNoTracking().Any(u => u.Email == registrationRequestDto.Email);
+                if (!isUserExist)
                 {
-                    var roleName = registrationRequestDto.RoleName.ToString();
-                    var newuser = _db.ApplicationUsers.First(u => u.Email == registrationRequestDto.Email);
-                    if(!_roleManager.RoleExistsAsync(roleName).GetAwaiter().GetResult())
+                    var result = _userManager.CreateAsync(user, registrationRequestDto.Password);
+                    if (result.Result.Succeeded)
                     {
-                        _roleManager.CreateAsync(new IdentityRole(roleName)).GetAwaiter().GetResult();
-                    }
-                    await _userManager.AddToRoleAsync(newuser, roleName);
+                        var roleName = registrationRequestDto.RoleName.ToString();
+                        var newuser = _db.ApplicationUsers.First(u => u.Email == registrationRequestDto.Email);
+                        if (!_roleManager.RoleExistsAsync(roleName).GetAwaiter().GetResult())
+                        {
+                            _roleManager.CreateAsync(new IdentityRole(roleName)).GetAwaiter().GetResult();
+                        }
+                        await _userManager.AddToRoleAsync(newuser, roleName);
 
-                    return "";
+                        return "";
+                    }
+                    else
+                    {
+                        return result.Result.Errors.FirstOrDefault().Description;
+                    }
                 }
                 else
                 {
-                    return result.Result.Errors.FirstOrDefault().Description;
+                    return "Email Id already exists";
                 }
             }
             catch (Exception ex)
             {
-               
+                //return "Error encountered";
             }
             return "Error encountered";
         }

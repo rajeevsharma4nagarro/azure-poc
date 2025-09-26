@@ -25,7 +25,7 @@ namespace SCD.Services.AuthAPI.Controllers
             {
                 _responseDto.IsSuccess = false;
                 _responseDto.Message = errorMessage;
-                return BadRequest(_responseDto);
+                return Ok(_responseDto);
             }
             return Ok(_responseDto);
         }
