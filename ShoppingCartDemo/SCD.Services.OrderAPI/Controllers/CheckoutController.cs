@@ -97,7 +97,7 @@ namespace SCD.Services.OrderAPI.Controllers
                 var clearresponse = await _cartService.RemoveCart(cartCheckoutDto.UserId);
                 if(!clearresponse.IsSuccess)
                 {
-                    throw new Exception(clearresponse.Message);
+                    throw new Exception("Cart Remove  Failed:" + clearresponse.Message);
                 }
 
                 OrderHeaderDto orderHeaderDto = _mapper.Map<OrderHeaderDto>(ordercreated);
