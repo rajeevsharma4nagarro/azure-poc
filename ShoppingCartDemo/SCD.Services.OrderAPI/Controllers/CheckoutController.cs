@@ -149,7 +149,7 @@ Your order has been received with order no {orderHeaderDto.OrderHeaderId} for th
         {
             try
             {
-                IEnumerable<OrderHeader> orderHeader = _db.OrderHeaders.Where(x => x.UserId == UserId);
+                IEnumerable<OrderHeader> orderHeader = _db.OrderHeaders.Where(x => x.UserId == UserId).OrderByDescending(o => o.OrderHeaderId);
 
                 _responseDto.Result = _mapper.Map<IEnumerable<OrderHeaderDto>>(orderHeader);
             }
