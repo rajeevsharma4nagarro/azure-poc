@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/azure/functions-action
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build Azure Function App - SCD-AS-EmailProcessorFunc
+name: Build AZ Function App - SCD-AS-EmailProcessorFunc
 
 on:
   push:
@@ -54,3 +54,4 @@ jobs:
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
 
           
+
