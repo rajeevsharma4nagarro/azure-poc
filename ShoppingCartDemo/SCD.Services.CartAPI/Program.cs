@@ -72,25 +72,25 @@ var Secret = builder.Configuration.GetValue<string>("ApiSettings:Secret");
 var Issuer = builder.Configuration.GetValue<string>("ApiSettings:Issuer");
 var Audience = builder.Configuration.GetValue<string>("ApiSettings:Audience");
 var key = Encoding.ASCII.GetBytes(Secret);
-// builder.Services.AddAuthentication(x =>
-// {
-//     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//     x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-// }).AddJwtBearer(x =>
-// {
-//     x.TokenValidationParameters = new TokenValidationParameters()
-//     {
-//         ValidateIssuerSigningKey = true,
-//         IssuerSigningKey = new SymmetricSecurityKey(key),
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(x =>
+{
+    x.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
 
-//         ValidateIssuer = true,
-//         ValidIssuer = Issuer,
+        ValidateIssuer = true,
+        ValidIssuer = Issuer,
 
-//         ValidateAudience = true,
-//         ValidAudience = Audience
-//     };
-// });
-// builder.Services.AddAuthorization();
+        ValidateAudience = true,
+        ValidAudience = Audience
+    };
+});
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -106,8 +106,8 @@ app.UseStaticFiles();
 app.UseHttpsRedirection();
 app.UseCors("Allow_SCD_UI");
 
-// app.UseAuthentication();
-// app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 ApplyMigration();
