@@ -14,7 +14,7 @@ namespace SCD.Services.CartAPI.Controllers
 {
     [Route("api/cart")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class CartController : ControllerBase
     {
         private readonly AppDbContext _db;
@@ -181,7 +181,7 @@ namespace SCD.Services.CartAPI.Controllers
             }
             catch (Exception ex)
             {
-                _responseDto.Message = "Inside clear cart:" + ex.Message;
+                _responseDto.Message = "Inside CartUpsert:" + ex.Message;
                 _responseDto.IsSuccess = false;
             }
             return _responseDto;
