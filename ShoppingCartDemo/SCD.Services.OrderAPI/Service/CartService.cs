@@ -13,11 +13,14 @@ namespace SCD.Services.OrderAPI.Service
         private readonly IHttpClientFactory _httpClientFactory;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ResponseDto responseDto;
-        public CartService(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor)
+        private readonly ILogger<CartService> _logger;
+        public CartService(IHttpClientFactory httpClientFactory, IHttpContextAccessor httpContextAccessor
+        , ILogger<CartService> logger)
         {
             _httpClientFactory = httpClientFactory;
             _httpContextAccessor = httpContextAccessor;
             responseDto = new ResponseDto();
+            _logger = logger;
         }
 
         public async Task<CartResponseDto> GetCart(string userId)
@@ -37,14 +40,12 @@ namespace SCD.Services.OrderAPI.Service
                 {
                     return JsonConvert.DeserializeObject<CartResponseDto>(Convert.ToString(result.Result));
                 }
-                // Optional: log the failed response
-                Console.WriteLine($"GetCart API call failed: {apiresponse}");
+                _logger.LogError($"GetCart API call failed: {apiresponse}");
             }
             catch (Exception ex)
             {
-                // Log or return detailed error
-                Console.WriteLine($"GetCart Error: {ex.Message}\nStack: {ex.StackTrace}");
-                throw; // or return a fallback CartResponseDto
+                _logger.LogError($"GetCart Error: {ex.Message}\nStack: {ex.StackTrace}");
+                throw;
             }
             return new CartResponseDto();
         }
