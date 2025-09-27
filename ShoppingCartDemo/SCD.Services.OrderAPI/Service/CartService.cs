@@ -40,14 +40,18 @@ namespace SCD.Services.OrderAPI.Service
                 {
                     return JsonConvert.DeserializeObject<CartResponseDto>(Convert.ToString(result.Result));
                 }
-                _logger.LogError($"GetCart API call failed: {apiresponse}");
+                else
+                {
+                    _logger.LogError($"GetCart API call failed: {apiresponse}");
+                    throw new Exception($"GetCart API call failed: {apiresponse}");
+                }
             }
             catch (Exception ex)
             {
                 _logger.LogError($"GetCart Error: {ex.Message}\nStack: {ex.StackTrace}");
                 throw;
             }
-            return new CartResponseDto();
+            //return new CartResponseDto();
         }
 
         public async Task<ResponseDto> RemoveCart(string userId)
