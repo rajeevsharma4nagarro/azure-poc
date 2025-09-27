@@ -124,9 +124,9 @@ namespace SCD.Services.OrderAPI.Controllers
                     string to = orderHeaderDto.Email;
                     string subject = "SCD - Order confirmation";
                     string mailbody = $@"Hi {orderHeaderDto.Name},<br/><br/>
-Your order has been received with order no {orderHeaderDto.OrderHeaderId} for the amount of Rs. {orderHeaderDto.OrderTotal}/-.
-<br/>You can check order status on SCD portal. 
-<br/><br/><br/>--<br/>Thanks<br/>Shopping Cart Demo (SCD)<br/>";
+                    Your order has been received with order no {orderHeaderDto.OrderHeaderId} for the amount of Rs. {orderHeaderDto.OrderTotal}/-.
+                    <br/>You can check order status on SCD portal. 
+                    <br/><br/><br/>--<br/>Thanks<br/>Shopping Cart Demo (SCD)<br/>";
                     var resp = await _emailService.SendEmailAsync(to, subject, mailbody);
                 }
                 catch (Exception ex)
@@ -138,7 +138,7 @@ Your order has been received with order no {orderHeaderDto.OrderHeaderId} for th
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                _responseDto.Message = ex.Message;
+                _responseDto.Message = "Inside CreateOrder:" + ex.Message;
                 _responseDto.IsSuccess = false;
             }
             return _responseDto;
@@ -155,7 +155,7 @@ Your order has been received with order no {orderHeaderDto.OrderHeaderId} for th
             }
             catch (Exception ex)
             {
-                _responseDto.Message = ex.Message;
+                _responseDto.Message = "Inside GetOrder by userid:" + ex.Message;
                 _responseDto.IsSuccess = false;
             }
             return _responseDto;
@@ -172,7 +172,7 @@ Your order has been received with order no {orderHeaderDto.OrderHeaderId} for th
             }
             catch (Exception ex)
             {
-                _responseDto.Message = ex.Message;
+                _responseDto.Message = "Inside GetPendingOrders:" + ex.Message;
                 _responseDto.IsSuccess = false;
             }
             return _responseDto;
@@ -204,7 +204,7 @@ Your order has been received with order no {orderHeaderDto.OrderHeaderId} for th
             }
             catch (Exception ex)
             {
-                _responseDto.Message = ex.Message;
+                _responseDto.Message = "Inside UpdateOrderStatus:" + ex.Message;
                 _responseDto.IsSuccess = false;
             }
             return _responseDto;
