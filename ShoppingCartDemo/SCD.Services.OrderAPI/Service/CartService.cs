@@ -37,6 +37,7 @@ namespace SCD.Services.OrderAPI.Service
             }
             else
             {
+                Console.WriteLine(String.Concat("GetCart Failed: client:${0} and  tokent:${1}", client, tokent));
                 throw new Exception(String.Concat("GetCart Failed: client:${0} and  tokent:${1}", client, tokent));
             }
             //return new CartResponseDto();
