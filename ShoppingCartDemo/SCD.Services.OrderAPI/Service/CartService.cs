@@ -37,16 +37,16 @@ namespace SCD.Services.OrderAPI.Service
                 {
                     return JsonConvert.DeserializeObject<CartResponseDto>(Convert.ToString(result.Result));
                 }
-                else
-                {
-                    Console.WriteLine(String.Concat("GetCart Failed: client:${0} and  tokent:${1}", client, tokent));
-                    throw new Exception(String.Concat("GetCart Failed: client:${0} and  tokent:${1}", client, tokent));
-                }
+                // Optional: log the failed response
+                Console.WriteLine($"GetCart API call failed: {apiresponse}");
             }
             catch (Exception ex)
             {
-                throw new Exception("Inside CreateOrder:" + ex.Message + Environment.NewLine + ex.StackTrace);
+                // Log or return detailed error
+                Console.WriteLine($"GetCart Error: {ex.Message}\nStack: {ex.StackTrace}");
+                throw; // or return a fallback CartResponseDto
             }
+            return new CartResponseDto();
         }
 
         public async Task<ResponseDto> RemoveCart(string userId)
