@@ -22,25 +22,31 @@ namespace SCD.Services.OrderAPI.Service
 
         public async Task<CartResponseDto> GetCart(string userId)
         {
-            var client = _httpClientFactory.CreateClient("CartApi");
-            var tokent = _httpContextAccessor.HttpContext.Request.Headers["Authorization"].FirstOrDefault();
-            if (!string.IsNullOrEmpty(tokent))
+            try
             {
-                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokent.Replace("Bearer ", ""));
+                var client = _httpClientFactory.CreateClient("CartApi");
+                var tokent = _httpContextAccessor.HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+                if (!string.IsNullOrEmpty(tokent))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokent.Replace("Bearer ", ""));
+                }
+                var response = await client.GetAsync($"/api/cart/GetCart/{userId}");
+                var apiresponse = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<ResponseDto>(apiresponse);
+                if (result.IsSuccess)
+                {
+                    return JsonConvert.DeserializeObject<CartResponseDto>(Convert.ToString(result.Result));
+                }
+                else
+                {
+                    Console.WriteLine(String.Concat("GetCart Failed: client:${0} and  tokent:${1}", client, tokent));
+                    throw new Exception(String.Concat("GetCart Failed: client:${0} and  tokent:${1}", client, tokent));
+                }
             }
-            var response = await client.GetAsync($"/api/cart/GetCart/{userId}");
-            var apiresponse = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<ResponseDto>(apiresponse);
-            if (result.IsSuccess)
+            catch (Exception ex)
             {
-                return JsonConvert.DeserializeObject<CartResponseDto>(Convert.ToString(result.Result));
+                throw new Exception("Inside CreateOrder:" + ex.Message + Environment.NewLine + ex.StackTrace);
             }
-            else
-            {
-                Console.WriteLine(String.Concat("GetCart Failed: client:${0} and  tokent:${1}", client, tokent));
-                throw new Exception(String.Concat("GetCart Failed: client:${0} and  tokent:${1}", client, tokent));
-            }
-            //return new CartResponseDto();
         }
 
         public async Task<ResponseDto> RemoveCart(string userId)
