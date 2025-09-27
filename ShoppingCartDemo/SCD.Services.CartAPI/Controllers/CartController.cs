@@ -103,7 +103,7 @@ namespace SCD.Services.CartAPI.Controllers
             }
             catch (Exception ex)
             {
-                _responseDto.Message = ex.Message;
+                _responseDto.Message = "Inside CartUpsert:" + ex.Message;
                 _responseDto.IsSuccess = false;
             }
 
@@ -130,7 +130,7 @@ namespace SCD.Services.CartAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError("Cart api remove cart Failed: " + ex.Message);
-                _responseDto.Message = ex.Message;
+                _responseDto.Message = "Inside RemoveCart:" + ex.Message;
                 _responseDto.IsSuccess = false;
             }
 
@@ -162,7 +162,7 @@ namespace SCD.Services.CartAPI.Controllers
             }
             catch (Exception ex)
             {
-                _responseDto.Message = ex.Message;
+                _responseDto.Message = "Inside GetCart by userid:" + ex.Message;
                 _responseDto.IsSuccess = false;
             }
             return _responseDto;
@@ -181,7 +181,7 @@ namespace SCD.Services.CartAPI.Controllers
             }
             catch (Exception ex)
             {
-                _responseDto.Message = ex.Message;
+                _responseDto.Message = "Inside clear cart:" + ex.Message;
                 _responseDto.IsSuccess = false;
             }
             return _responseDto;
