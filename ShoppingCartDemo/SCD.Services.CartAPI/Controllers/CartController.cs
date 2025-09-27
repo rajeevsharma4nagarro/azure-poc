@@ -14,7 +14,7 @@ namespace SCD.Services.CartAPI.Controllers
 {
     [Route("api/cart")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class CartController : ControllerBase
     {
         private readonly AppDbContext _db;
