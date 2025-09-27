@@ -35,7 +35,11 @@ namespace SCD.Services.OrderAPI.Service
             {
                 return JsonConvert.DeserializeObject<CartResponseDto>(Convert.ToString(result.Result));
             }
-            return new CartResponseDto();
+            else
+            {
+                throw new Exception(String.Concat("GetCart Failed: client:${0} and  tokent:${1}", client, tokent));
+            }
+            //return new CartResponseDto();
         }
 
         public async Task<ResponseDto> RemoveCart(string userId)
