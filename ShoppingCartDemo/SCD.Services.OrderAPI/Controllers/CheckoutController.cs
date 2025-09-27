@@ -103,7 +103,7 @@ namespace SCD.Services.OrderAPI.Controllers
                     _logger.LogError("Update Order Header  Failed: " + ex.Message);
                     throw new Exception("Update Order Header  Failed:" + ex.Message);
                 }
-                
+
 
                 //Clear Cart Items
                 var clearresponse = await _cartService.RemoveCart(cartCheckoutDto.UserId);
@@ -138,8 +138,9 @@ namespace SCD.Services.OrderAPI.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                _responseDto.Message = "Inside CreateOrder:" + ex.Message;
+                _responseDto.Message = "Inside CreateOrder:" + ex.Message + Environment.NewLine + ex.StackTrace;
                 _responseDto.IsSuccess = false;
+                
             }
             return _responseDto;
         }
