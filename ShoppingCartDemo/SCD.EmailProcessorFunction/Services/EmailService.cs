@@ -19,9 +19,9 @@ namespace SCD.EmailProcessorFunction.Services
             string to = orderHeader.Email;
             string subject = @"SCD - Order status update.";
             string mailbody = $@"Hi {orderHeader.Name},<br/><br/>
-Your order no {orderHeader.OrderHeaderId} for amount of Rs.{orderHeader.OrderTotal}/- has been <b>{orderHeader.Status}</b>.
-<br/>You can check order status on SCD portal. 
-<br/><br/><br/>--<br/>Thanks<br/>Shopping Cart Demo (SCD)<br/>";
+            Your order no {orderHeader.OrderHeaderId} for amount of Rs.{orderHeader.OrderTotal}/- has been <b>{orderHeader.Status}</b>.
+            <br/>You can check order status on SCD portal. 
+            <br/><br/><br/>--<br/>Thanks<br/>Shopping Cart Demo (SCD)<br/>";
 
             var payload = new
             {
