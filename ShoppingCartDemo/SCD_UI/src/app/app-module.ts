@@ -9,11 +9,13 @@ import { Signup } from './components/signup/signup';
 import { Dashboard } from './components/dashboard/dashboard';
 import { Myorders } from './components/myorders/myorders';
 import { AddProduct } from './components/add-product/add-product';
-import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, //HttpClientModule, 
+  provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './services/auth.interceptor';
 import { CartItems } from './components/checkout/cart-items/cart-items';
 import { Confirmation } from './components/confirmation/confirmation';
 import { Allorders } from './components/allorders/allorders';
+import { Loading } from './components/loading-component/loading-component';
 
 @NgModule({
   declarations: [
@@ -26,13 +28,14 @@ import { Allorders } from './components/allorders/allorders';
     AddProduct,
     CartItems,
     Confirmation,
-    Allorders
+    Allorders,
+    Loading
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
+    //HttpClientModule,
     ReactiveFormsModule
   ],
   providers: [
