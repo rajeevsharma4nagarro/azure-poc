@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { MockProducts } from '../../services/global.services';
+import { GlobalService, MockProducts } from '../../services/global.services';
 import { ProductCategory } from '../../services/global.services';
 import { ProductService } from '../../services/product-service';
 import { CartStateService } from '../checkout/cart-items/CartStateService/cart-state-service';
@@ -24,12 +24,22 @@ export class Dashboard implements OnInit {
   filteredProducts: iProduct[] = [];//...this.products
   paginatedProducts: iProduct[] = [];
   totalPages: number = 1;
-
-  constructor(private pService: ProductService, private cdr: ChangeDetectorRef, private cartState: CartStateService) {
+  isAdmin: boolean = false;
+  
+  constructor(private pService: ProductService, private cdr: ChangeDetectorRef, private cartState: CartStateService
+    ,private globalServices: GlobalService
+  ) {
     
   }
 
   ngOnInit() {
+    this.globalServices.userProfile$.subscribe({
+      next: (profile: any) => {
+        this.isAdmin = (profile?.roleName == 'Admin')? true: false;
+      },
+      error: () => { },
+      complete: () => { }
+    });
     this.getAllProducts();
   }
 

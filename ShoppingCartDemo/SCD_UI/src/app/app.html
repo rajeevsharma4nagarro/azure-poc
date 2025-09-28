@@ -13,8 +13,6 @@
     </div>
 
     <!-- Case 2: User LOGGED in -->
-    <a *ngIf="isLoggedIn && roleName=='Admin'" class="nav-link d-inline-block text-white me-3" [routerLink]="['/addproduct']">Add Product</a>
-    <a *ngIf="isLoggedIn && roleName=='Admin'" class="nav-link d-inline-block text-white me-3" [routerLink]="['/pendingorders']">Pending Orders</a>
     <div *ngIf="isLoggedIn" class="dropdown">
       <a class="nav-link dropdown-toggle text-white"
          href="#"
@@ -25,22 +23,30 @@
       </a>
       <ul class="dropdown-menu dropdown-menu-end p-2" style="min-width: 300px;">
 
-        <!-- Shopping Cart Items -->
-        <li class="fw-bold px-2 mb-2 border-bottom">Shopping Cart</li>
-        <app-cart-items (cartTotal)="populateCarttotal($event)"></app-cart-items>
-        <li *ngIf="cartTotal > 0" class="mt-2 px-2">
-          <a class="btn btn-sm btn-light w-100" [routerLink]="['/checkout']">
-            <i class="fa fa-credit-card me-1"></i> Checkout&nbsp;<strong>₹{{ cartTotal }}</strong>
-          </a>
+        <ng-container  *ngIf="roleName!=='Admin'">
+          <!-- Shopping Cart Items -->
+          <li class="fw-bold px-2 mb-2 border-bottom">Shopping Cart</li>
+          <app-cart-items (cartTotal)="populateCarttotal($event)"></app-cart-items>
+          <li *ngIf="cartTotal > 0" class="mt-2 px-2">
+            <a class="btn btn-sm btn-light w-100" [routerLink]="['/checkout']">
+              <i class="fa fa-credit-card me-1"></i> Checkout&nbsp;<strong>₹{{ cartTotal }}</strong>
+            </a>
+          </li>
+
+          <li><hr class="dropdown-divider"></li>
+
+          <!-- Logout -->
+          <li>
+            <a class="dropdown-item text-info" [routerLink]="['/myorders']">
+              <i class="fa fa-sign-out me-2"></i>My Orders
+            </a>
+          </li>
+        </ng-container>
+        <li *ngIf="isLoggedIn && roleName=='Admin'">
+          <a class="dropdown-item text-info" [routerLink]="['/addproduct']">Add Product</a>
         </li>
-
-        <li><hr class="dropdown-divider"></li>
-
-        <!-- Logout -->
-        <li>
-          <a class="dropdown-item text-info" [routerLink]="['/myorders']">
-            <i class="fa fa-sign-out me-2"></i>My Orders
-          </a>
+        <li *ngIf="isLoggedIn && roleName=='Admin'">
+          <a class="dropdown-item text-info" [routerLink]="['/pendingorders']">Pending Orders</a>
         </li>
         <li>
           <a class="dropdown-item text-danger" href="#" (click)="logout()">
