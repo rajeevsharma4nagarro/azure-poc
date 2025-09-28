@@ -49,6 +49,11 @@ namespace SCD.Services.OrderAPI.Controllers
         {
             try
             {
+                if (_cartService == null)
+                {
+                    throw new Exception("cart service _cartService is null");
+                }
+
                 var CartResponseDto = await _cartService.GetCart(cartCheckoutDto.UserId);
 
                 IEnumerable<ProductDto> productDtos = await _productService.GetProducts();
