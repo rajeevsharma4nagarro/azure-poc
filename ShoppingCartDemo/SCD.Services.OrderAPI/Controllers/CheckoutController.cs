@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using SCD.MessageBus;
 using SCD.Services.OrderAPI.Data;
 using SCD.Services.OrderAPI.Models;
@@ -10,6 +12,7 @@ using SCD.Services.OrderAPI.Models.Dto;
 using SCD.Services.OrderAPI.Service;
 using SCD.Services.OrderAPI.Service.IService;
 using SCD.Services.OrderAPI.Utilitiy;
+using System.IO;
 
 namespace SCD.Services.OrderAPI.Controllers
 {
@@ -47,6 +50,8 @@ namespace SCD.Services.OrderAPI.Controllers
         [HttpPost("CreateOrder")]
         public async Task<ResponseDto> CreateOrder([FromBody] CartCheckoutDto cartCheckoutDto)
         {
+            string filePath = @"mylog.txt";
+            string logTime = DateTime.Now.ToString("YYYY-MM-DD:HH-mm-ss");
             try
             {
                 if (_cartService == null)
@@ -54,9 +59,50 @@ namespace SCD.Services.OrderAPI.Controllers
                     throw new Exception("cart service _cartService is null");
                 }
 
-                var CartResponseDto = await _cartService.GetCart(cartCheckoutDto.UserId);
+                System.IO.File.AppendAllText(filePath, $"{logTime}  - first entry");
+                //var CartResponseDto = await _cartService.GetCart(cartCheckoutDto.UserId);
+
+                var json = JsonConvert.SerializeObject(cartCheckoutDto);
+                // start
+                System.IO.File.AppendAllText(filePath, $"{logTime}  - second json: {json} ");
+
+
+                var CartResponseDto = new CartResponseDto
+                {
+                    CartHeader = new CartHeaderDto
+                    {
+                        CartHeaderId = 1,
+                        UserId = "test-user",
+                        CartTotal = 75.48
+                    },
+                    CartDetails = new List<CartDetailsResponseDto>
+                    {
+                        new CartDetailsResponseDto
+                        {
+                            CartDetailId = 101,
+                            CartHeaderId = 1,
+                            ProductId = 1,
+                            Price = 29.99,
+                            Count = 2,
+                            Product = new ProductDto
+                            {
+                                ID = 1,
+                                Name = "T-shirt",
+                                Description = "A sample product",
+                                Category = "Clothing",
+                                Price = 29.99,
+                                ImageUrl = "/images/110040ba-d84e-48bc-b12a-3953a8c147b4.png"
+                            }
+                        }
+                    }
+                };
+
+               // end
+
 
                 IEnumerable<ProductDto> productDtos = await _productService.GetProducts();
+
+                System.IO.File.AppendAllText(filePath, $"{logTime}  - third entry");
 
                 var orderDetails = new List<OrderDetails>();
                 foreach (var details in CartResponseDto.CartDetails)
@@ -100,20 +146,27 @@ namespace SCD.Services.OrderAPI.Controllers
                 OrderHeader ordercreated;
                 try
                 {
+                    System.IO.File.AppendAllText(filePath, $"{logTime}  - fourth entry");
+
                     ordercreated = _db.OrderHeaders.Add(orderHeader).Entity;
                     await _db.SaveChangesAsync();
                 }
                 catch (Exception ex)
                 {
+                    System.IO.File.AppendAllText(filePath, $"{logTime}  - fifth entry");
+
                     _logger.LogError("Update Order Header  Failed: " + ex.Message);
                     throw new Exception("Update Order Header  Failed:" + ex.Message);
                 }
+
+
 
 
                 //Clear Cart Items
                 var clearresponse = await _cartService.RemoveCart(cartCheckoutDto.UserId);
                 if (!clearresponse.IsSuccess)
                 {
+                    System.IO.File.AppendAllText(filePath, $"{logTime}  - sixth entry");
                     _logger.LogError("Cart Remove  Failed: " + clearresponse.Message);
                     throw new Exception("Cart Remove  Failed:" + clearresponse.Message);
                 }
@@ -136,16 +189,18 @@ namespace SCD.Services.OrderAPI.Controllers
                 }
                 catch (Exception ex)
                 {
+                    System.IO.File.AppendAllText(filePath, $"{logTime}  - seventh entry");
                     _logger.LogError("Failed to send email: " + ex.Message);
                     throw new Exception("Failed to send email: " + ex.Message);
                 }
             }
             catch (Exception ex)
             {
+                System.IO.File.AppendAllText(filePath, $"{logTime}  - eigth entry");
                 _logger.LogError(ex.Message);
                 _responseDto.Message = "Inside CreateOrder:" + ex.Message + Environment.NewLine + ex.StackTrace;
                 _responseDto.IsSuccess = false;
-                
+
             }
             return _responseDto;
         }
