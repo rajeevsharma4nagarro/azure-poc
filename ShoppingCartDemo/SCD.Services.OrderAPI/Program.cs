@@ -14,6 +14,15 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddHttpContextAccessor();
 
+builder.Logging.AddConsole();     // ✅ Console logs go to Azure log stream
+
+// Optional: Add Debug logging (for local dev)
+builder.Logging.AddDebug();
+
+// Optional: Set log level (you can also use appsettings)
+builder.Logging.SetMinimumLevel(LogLevel.Information);
+
+
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -121,6 +130,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGet("/", () =>
+{
+    Console.WriteLine("console log - SCD - shopping cart demo.. log start here!"); // ✅ Visible in Log Stream
+    return "SCD - shopping cart demo.. log start here!";
+});
 ApplyMigration();
 app.Run();
 
