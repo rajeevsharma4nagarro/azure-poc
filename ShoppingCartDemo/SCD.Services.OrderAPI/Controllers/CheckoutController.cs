@@ -194,7 +194,7 @@ namespace SCD.Services.OrderAPI.Controllers
         {
             try
             {
-                IEnumerable<OrderHeader> orderHeader = _db.OrderHeaders.Where(x => x.Status == OrderStatus.Pending);
+                IEnumerable<OrderHeader> orderHeader = _db.OrderHeaders.Where(x => x.Status == OrderStatus.Pending).OrderByDescending(o => o.OrderHeaderId);
                 _responseDto.Result = _mapper.Map<IEnumerable<OrderHeaderDto>>(orderHeader);
             }
             catch (Exception ex)

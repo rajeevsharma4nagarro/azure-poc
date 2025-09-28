@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { OrderService } from '../../services/order-service';
 import { GlobalService } from '../../services/global.services';
 import { iOrders } from '../../models/iOrders';
+import { LoadingService } from '../../services/loading-service';
 
 @Component({
   selector: 'app-allorders',
@@ -11,7 +12,7 @@ import { iOrders } from '../../models/iOrders';
 })
 export class Allorders {
   orders: iOrders[] = [];
-  constructor(private oService: OrderService, private globalServices: GlobalService) {
+  constructor(private oService: OrderService, private globalServices: GlobalService, private loader: LoadingService) {
 
   }
 
@@ -21,6 +22,7 @@ export class Allorders {
 
 
   updateStatus(orderHeaderId: number, status: boolean) {
+    this.loader.show();
     this.oService.updateOrderStatus(orderHeaderId, status).subscribe({
       next: (res) => {
         //this.orders = res.result;
@@ -34,12 +36,13 @@ export class Allorders {
 
       },
       complete: () => {
-
+        this.loader.hide();
       }
     })
   }
 
   bindData() {
+    this.loader.show();
     this.oService.getPendingOrders().subscribe({
       next: (res) => {
         this.orders = res.result;
@@ -48,7 +51,7 @@ export class Allorders {
 
       },
       complete: () => {
-
+        this.loader.hide();
       }
     });
   }

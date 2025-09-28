@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { OrderService } from '../../services/order-service';
 import { CartStateService } from './cart-items/CartStateService/cart-state-service';
+import { LoadingService } from '../../services/loading-service';
 
 @Component({
   selector: 'app-checkout',
@@ -18,7 +19,8 @@ export class Checkout implements OnInit {
   cartTotal: number = 0;
   addressForm: FormGroup;
   constructor(private globalServices: GlobalService, private orderService: OrderService, private cd: ChangeDetectorRef,
-    private fb: FormBuilder, private router: Router, private cartStateService: CartStateService) {
+    private fb: FormBuilder, private router: Router, private cartStateService: CartStateService,
+  private loader: LoadingService) {
     this.addressForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', Validators.required],
@@ -70,6 +72,7 @@ export class Checkout implements OnInit {
 
   onSubmit() {
     if (this.addressForm.valid) {
+      this.loader.show();
       let formData = { ...this.addressForm.value, payment: this.addressForm.getRawValue().payment };
 
       this.orderService.createOrder(formData).subscribe({
@@ -86,7 +89,7 @@ export class Checkout implements OnInit {
           alert(err)
         },
         complete: () => {
-
+          this.loader.hide();
         }
       });
     }
