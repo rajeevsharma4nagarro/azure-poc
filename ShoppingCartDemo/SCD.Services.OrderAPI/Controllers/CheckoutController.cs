@@ -60,10 +60,10 @@ namespace SCD.Services.OrderAPI.Controllers
                 }
 
                 System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - first entry");
+                System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - second _cartService: {JsonConvert.SerializeObject(_cartService)} ");
                 var CartResponseDto = await _cartService.GetCart(cartCheckoutDto.UserId);
 
                 var json = JsonConvert.SerializeObject(cartCheckoutDto);
-                System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - second json: {json} ");
                 System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - third entry");
 
                 IEnumerable<ProductDto> productDtos = await _productService.GetProducts();
