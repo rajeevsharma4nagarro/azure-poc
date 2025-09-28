@@ -15,7 +15,7 @@ import { iJwtClaims } from '../../models/iJwtClaims';
 export class Login {
   loginForm = {
     email: 'customer@nagarro.com',
-    password: 'Rajeev@123'
+    password: 'Pass@123'
   };
 
   constructor(private router: Router, private userService: UserService, private authService: AuthService) { }
@@ -40,8 +40,20 @@ export class Login {
 
             this.authService.setToken(res.result.token, userDetails);
             this.router.navigate(['/home']);
+          } 
+          else 
+          {
+            alert('Please enter email & password');
           }
+        },
+        error: (err) => {
+          console.log(err);
+          alert(err.error.message);
+        },
+        complete: () => {
+          console.log('completed');
         }
+      
       });
       
     } else {
