@@ -1,1 +1,0 @@
-first entryjson {"UserId":"9e99ef70-5bd4-4c9b-b141-48cddff65ff7","Name":"First Customer","Email":"customer@nagarro.com","Address":"my address","City":"my city","State":"my state","Zip":"123456","Payment":"cod","CardNumber":"","Expiry":"","Cvv":""} 
