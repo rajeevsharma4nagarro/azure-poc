@@ -162,7 +162,7 @@ namespace SCD.Services.OrderAPI.Controllers
             }
             catch (Exception ex)
             {
-                System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - ninth entry");
+                System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - ninth entry" + Environment.NewLine + Environment.NewLine + "Inside CreateOrder:" + ex.Message + Environment.NewLine + ex.StackTrace);
                 _logger.LogError(ex.Message);
                 _responseDto.Message = "Inside CreateOrder:" + ex.Message + Environment.NewLine + ex.StackTrace;
                 _responseDto.IsSuccess = false;
