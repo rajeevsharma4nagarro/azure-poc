@@ -29,7 +29,7 @@ jobs:
         
     - name: Commit and Push to Azure DevOps
       run: |
-        cd azure-repo
+        cd ui-repo
         git add .
         git commit -m "Sync from GitHub $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
         git push origin main
