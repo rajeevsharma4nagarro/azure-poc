@@ -22,6 +22,4 @@ export const environment = {
   cartApiUrl: 'http://localhost:7000/api',
   orderApiUrl: 'http://localhost:7000/api'
  */
-
-  /*angular UI demo for code sync 3  */
 };
