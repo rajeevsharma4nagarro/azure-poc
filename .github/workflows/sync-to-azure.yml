@@ -21,12 +21,12 @@ jobs:
         AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
         AZURE_DEVOPS_REPO_URL: ${{ secrets.AZURE_DEVOPS_REPO_URL }}Repo_SCD_UI
       run: |
-        git clone https://:${AZURE_DEVOPS_PAT}@${AZURE_DEVOPS_REPO_URL#https://} azure-repo
+        git clone https://:${AZURE_DEVOPS_PAT}@${AZURE_DEVOPS_REPO_URL#https://} ui-repo
                   
     - name: Copy GitHub repo contents to Azure Repo folder
       run: |
-        rsync -av --exclude='.git' ./ azure-repo/
-
+        rsync -av --delete --exclude='.git' ShoppingCartDemo/SCD_UI/ ui-repo/
+        
     - name: Commit and Push to Azure DevOps
       run: |
         cd azure-repo
