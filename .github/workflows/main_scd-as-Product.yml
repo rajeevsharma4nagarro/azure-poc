@@ -68,7 +68,34 @@ jobs:
           slot-name: 'Production'
           package: .
 
-          
+  SyncCode:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout GitHub Repository
+      uses: actions/checkout@v3
+        
+    - name: Set up Git
+      run: |
+        git config --global user.name "rajeevsharma4nagarro"
+        git config --global user.email "rajeev.sharma@nagarro.com"
+
+    - name: Clone Azure DevOps Repository
+      env:
+        AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+        AZURE_DEVOPS_REPO_URL: ${{ secrets.AZURE_DEVOPS_REPO_URL }}Repo_SCD_AuthAPI
+      run: |
+        git clone https://:${AZURE_DEVOPS_PAT}@${AZURE_DEVOPS_REPO_URL#https://} product-repo
+                  
+    - name: Copy GitHub repo contents to Azure Repo folder
+      run: |
+        rsync -av --delete --exclude='.git' ShoppingCartDemo/SCD.Services.Repo_SCD_ProductAPI/ product-repo/
+        
+    - name: Commit and Push to Azure DevOps
+      run: |
+        cd product-repo
+        git add .
+        git commit -m "Sync from GitHub $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+        git push origin main
 
 
 
