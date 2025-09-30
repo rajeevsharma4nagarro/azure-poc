@@ -22,8 +22,8 @@ jobs:
         AZURE_DEVOPS_REPO_URL: ${{ secrets.AZURE_DEVOPS_REPO_URL }}Repo_SCD_UI
       run: |
         # Clone Azure Repo into a new folder
-        git clone https://${AZURE_DEVOPS_PAT}@${AZURE_DEVOPS_REPO_URL#https://}_git/Repo_SCD_UI azure-repo
-        
+        git clone https://${AZURE_DEVOPS_PAT}@${AZURE_DEVOPS_REPO_URL#https://}_git azure-repo
+                  
     - name: Copy GitHub repo contents to Azure Repo folder
       run: |
         rsync -av --exclude='.git' ./ azure-repo/
