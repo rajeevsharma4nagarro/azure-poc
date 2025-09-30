@@ -87,7 +87,7 @@ jobs:
                   
     - name: Copy GitHub repo contents to Azure Repo folder
       run: |
-        rsync -av --delete --exclude='.git' ShoppingCartDemo/SCD_UI/ auth-repo/
+        rsync -av --delete --exclude='.git' ShoppingCartDemo/SCD.Services.AuthAPI/ auth-repo/
         
     - name: Commit and Push to Azure DevOps
       run: |
@@ -96,6 +96,7 @@ jobs:
         git commit -m "Sync from GitHub $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
         git push origin main
           
+
 
 
 
