@@ -1,0 +1,36 @@
+name: Sync Code to  Azure DevOps
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  SyncCode:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout GitHub Repository
+      uses: actions/checkout@v3
+        
+    - name: Set up Git
+      run: |
+        git config --global user.name "rajeevsharma4nagarro"
+        git config --global user.email "rajeev.sharma@nagarro.com"
+
+    - name: Clone Azure DevOps Repository
+      env:
+        AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
+        AZURE_DEVOPS_REPO_URL: ${{ secrets.AZURE_DEVOPS_REPO_URL }}Repo_SCD_UI
+      run: |
+        # Clone Azure Repo into a new folder
+        git clone https://${AZURE_DEVOPS_PAT}@${AZURE_DEVOPS_REPO_URL#https://}_git/Repo_SCD_UI azure-repo
+        
+    - name: Copy GitHub repo contents to Azure Repo folder
+      run: |
+        rsync -av --exclude='.git' ./ azure-repo/
+
+    - name: Commit and Push to Azure DevOps
+      run: |
+        cd azure-repo
+        git add .
+        git commit -m "Sync from GitHub $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+        git push origin main
