@@ -82,7 +82,7 @@ jobs:
     - name: Clone Azure DevOps Repository
       env:
         AZURE_DEVOPS_PAT: ${{ secrets.AZURE_DEVOPS_PAT }}
-        AZURE_DEVOPS_REPO_URL: ${{ secrets.AZURE_DEVOPS_REPO_URL }}Repo_SCD_AuthAPI
+        AZURE_DEVOPS_REPO_URL: ${{ secrets.AZURE_DEVOPS_REPO_URL }}Repo_SCD_ProductAPI
       run: |
         git clone https://:${AZURE_DEVOPS_PAT}@${AZURE_DEVOPS_REPO_URL#https://} product-repo
                   
