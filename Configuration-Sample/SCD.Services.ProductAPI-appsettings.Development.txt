@@ -1,0 +1,23 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "AllowedOrigins": "http://localhost:7000,http://localhost:4200",
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=*****;Database=SCD_DB_Product;User Id=*****;Password=*****;TrustServerCertificate=True"
+  },
+  "ApiSettings": {
+    "Secret": "This secreat key is very long secret key for now.",
+    "Issuer": "shopping-cart-demo",
+    "Audience": "shopping-cart-demo-client"
+  },
+  "StorageAccount": {
+    "ConnectionString": "DefaultEndpointsProtocol=https;AccountName=scdsto*****;AccountKey=*****",
+    "ContainerName": "images",
+    "UrlInitial": "https://scd*****.blob.core.windows.net"
+  }
+}

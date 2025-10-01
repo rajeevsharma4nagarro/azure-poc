@@ -21,5 +21,8 @@ export const environment = {
   productApiUrl: 'http://localhost:7000/api',
   cartApiUrl: 'http://localhost:7000/api',
   orderApiUrl: 'http://localhost:7000/api'
+
+  ,
+  "Testing":"ci cd demo"
  */
 };

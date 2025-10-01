@@ -1,0 +1,28 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },
+  "AllowedHosts": "*",
+  "AllowedOrigins": "http://localhost:7000,http://localhost:4200",
+  "ApiSettings": {
+    "Secret": "This secreat key is very long secret key for now.",
+    "Issuer": "shopping-cart-demo",
+    "Audience": "shopping-cart-demo"
+  },
+  "ServiceUrls": {
+    "ProductApi": "http://localhost:7003",
+    "CartApi": "http://localhost:7004"
+  },
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=*****;Database=*****;User Id=*****;Password=*****;TrustServerCertificate=True"
+  },
+  "AzureMessageBus": {
+    "EmailQueue": {
+      "ConnectionString": "Endpoint=sb://scd-messagequeue.servicebus.windows.net/;*****",
+      "Name": "scd-ema*****"
+    }
+  }
+}

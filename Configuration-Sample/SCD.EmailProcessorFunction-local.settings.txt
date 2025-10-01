@@ -1,0 +1,13 @@
+{
+    "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+
+    "AzureWebStorageQueueName": "scd-stor****",
+    "AzureWebStorageConnectionName": "DefaultEndpointsProtocol=https;AccountName=scdstora******;AccountKey=********",
+    "ServiceBusConnectionName": "Endpoint=sb://*****.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=*****",
+    "ServiceBusQueueName": "***",
+    "EmailTriggerLogicApp": "https://prod-23.centralindia.logic.azure.com:443/workflows/3789e6df45bf4d9db730e7d6d****"
+  }
+}
