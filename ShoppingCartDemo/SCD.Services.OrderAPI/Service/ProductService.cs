@@ -17,15 +17,15 @@ namespace SCD.Services.OrderAPI.Service
         }
         public async Task<IEnumerable<ProductDto>> GetProducts()
         {
-            string filePath = @"mylog.txt";
-            string logTime = DateTime.Now.ToString("YYYY-MM-DD:HH-mm-ss");
+            //string filePath = @"mylog.txt";
+            //string logTime = DateTime.Now.ToString("YYYY-MM-DD:HH-mm-ss");
 
             var client = _httpClientFactory.CreateClient("Product");
-            System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - CreateClient('Product') json: {JsonConvert.SerializeObject(client)} ");
+            //System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - CreateClient('Product') json: {JsonConvert.SerializeObject(client)} ");
 
             var token = _httpContextAccessor.HttpContext.Request.Headers["Authorization"].FirstOrDefault();
 
-            System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - token : {token} ");
+            //System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - token : {token} ");
 
             if (!string.IsNullOrEmpty(token))
             {
@@ -33,14 +33,14 @@ namespace SCD.Services.OrderAPI.Service
             }
 
             var response = await client.GetAsync("/api/product");
-            System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - GetAsync('/api/product') json: {JsonConvert.SerializeObject(response)} ");
+            //System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - GetAsync('/api/product') json: {JsonConvert.SerializeObject(response)} ");
 
 
             var apiContent = await response.Content.ReadAsStringAsync();
-            System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - apiContent json: {JsonConvert.SerializeObject(apiContent)} ");
+            //System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - apiContent json: {JsonConvert.SerializeObject(apiContent)} ");
 
             var resp = JsonConvert.DeserializeObject<ResponseDto>(apiContent);
-            System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - resp json: {JsonConvert.SerializeObject(resp)} ");
+            //System.IO.File.AppendAllText(filePath, Environment.NewLine + Environment.NewLine + $"{logTime}  - resp json: {JsonConvert.SerializeObject(resp)} ");
 
             if (resp.IsSuccess)
             {

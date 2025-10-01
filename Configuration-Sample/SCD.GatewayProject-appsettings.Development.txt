@@ -1,0 +1,14 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning"
+    }
+  },  
+  "AllowedOrigins": "http://localhost:7777,http://localhost:4200",
+  "ApiSettings": {
+    "Secret": "This secreat key is very long secret key for now.",
+    "Issuer": "shopping-cart-demo",
+    "Audience": "shopping-cart-demo"
+  }
+}

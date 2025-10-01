@@ -1,0 +1,1 @@
+All workflow is CI-CD, when push trigger then it deploy code on azure server and copy same repo to Azure Devops Repo
