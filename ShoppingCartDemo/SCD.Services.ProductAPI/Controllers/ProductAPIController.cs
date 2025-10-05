@@ -39,13 +39,14 @@ namespace SCD.Services.ProductAPI.Controllers
             //var request = _httpContextAccessor.HttpContext?.Request;
             //if (request == null) return string.Empty;
             //return $"{request.Scheme}://{request.Host}{request.PathBase}";
-            var sas = _configuration.GetSection("StorageAccount:ImageSAS").Value;
-            return _configuration.GetSection("StorageAccount:UrlInitial").Value + "?" + sas;
+            
+            return _configuration.GetSection("StorageAccount:UrlInitial").Value;
         }
 
         [HttpGet]
         public object Get()
         {
+            var sas = _configuration.GetSection("StorageAccount:ImageSAS").Value;
             try
             {
                 var list = _db.Products.Select(p => new ProductDto
@@ -53,7 +54,7 @@ namespace SCD.Services.ProductAPI.Controllers
                     Category = p.Category,
                     Description = p.Description,
                     ID = p.ID,
-                    ImageUrl = ImageBaseUrl() + p.ImageUrl,
+                    ImageUrl = ImageBaseUrl() + p.ImageUrl + "?" + sas,
                     Name = p.Name,
                     Price = p.Price
                 }).ToList();
