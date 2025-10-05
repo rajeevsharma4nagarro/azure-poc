@@ -39,7 +39,8 @@ namespace SCD.Services.ProductAPI.Controllers
             //var request = _httpContextAccessor.HttpContext?.Request;
             //if (request == null) return string.Empty;
             //return $"{request.Scheme}://{request.Host}{request.PathBase}";
-            return _configuration.GetSection("StorageAccount:UrlInitial").Value;
+            var sas = _configuration.GetSection("StorageAccount:ImageSAS").Value;
+            return _configuration.GetSection("StorageAccount:UrlInitial").Value + "?" + sas;
         }
 
         [HttpGet]
