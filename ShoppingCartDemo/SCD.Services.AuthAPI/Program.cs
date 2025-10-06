@@ -4,14 +4,26 @@ using SCD.Services.AuthAPI.Data;
 using SCD.Services.AuthAPI.Models;
 using SCD.Services.AuthAPI.Service;
 using SCD.Services.AuthAPI.Service.IService;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
+/// Get the Key Vault URI
+string keyVaultUrl = "https://scd-sql-key-vault.vault.azure.net/";
+
+// Create a SecretClient using DefaultAzureCredential
+var secretClient = new SecretClient(new Uri(keyVaultUrl), new DefaultAzureCredential());
+
+// Retrieve the secret
+KeyVaultSecret secret = secretClient.GetSecret("auth-db-connectionstring");
+string connectionString = secret.Value;
+//Console.WriteLine(connectionString);
+// Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+options.UseSqlServer(connectionString); //builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("ApiSettings:JwtOptions"));
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<AppDbContext>()
